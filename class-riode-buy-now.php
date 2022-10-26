@@ -65,8 +65,6 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
 
                     <!-- js -->
                     <script id="vans-riode-buy-now-btn-js" data-product-type="<?php echo $prod_type; ?>" data-var-err-msg="<?php echo $err_msg; ?>">
-                        'use strict';
-
                         $ = jQuery;
 
                         $(document).ready(function() {
@@ -93,6 +91,8 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                             $('#vans-riode-buy-now-btn-variable').click(function(e) {
 
                                 e.preventDefault();
+
+                                $(this).text('<?php _e('Processing...', 'woocommerce') ?>');
 
                                 // setup vars
                                 var var_id = $('.variation_id').val(),
@@ -141,7 +141,10 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
 
                                 $.post(ajaxurl, data, function(response) {
                                     if (response.length > 0) {
-                                        location.replace('checkout');
+                                        window.location.replace('<?php echo wc_get_checkout_url(); ?>');
+                                    } else {
+                                        alert('<?php _e('Could not add items to cart. Please try again.', 'woocommerce') ?>');
+                                        window.location.reload();
                                     }
                                 });
 
@@ -152,6 +155,8 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                             // ~~~~~~~~~~~~~~~~~~~~~~~~
                             $('#vans-riode-buy-now-btn-simple').click(function(e) {
                                 e.preventDefault();
+
+                                $(this).text('<?php _e('Processing...', 'woocommerce') ?>');
 
                                 // setup vars
                                 var product_id = $('input[name=product_id]').val(),
@@ -197,7 +202,12 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                                 };
 
                                 $.post(ajaxurl, data, function(response) {
-                                    console.log(response);
+                                    if (response.length > 0) {
+                                        window.location.replace('<?php echo wc_get_checkout_url(); ?>');
+                                    } else {
+                                        alert('<?php _e('Could not add items to cart. Please try again.', 'woocommerce') ?>');
+                                        window.location.reload();
+                                    }
                                 });
 
                             });
@@ -219,7 +229,7 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
             $atc_data = [];
 
             // add main prod to cart
-            $atc_data = wc()->cart->add_to_cart($_POST['parent_id'], $_POST['qty'], $_POST['parent_id']);
+            $atc_data[] = wc()->cart->add_to_cart($_POST['parent_id'], $_POST['qty'], $_POST['var_id']);
 
             // add variable upsells to cart
             if (!empty($_POST['v_upsells'])) :
@@ -256,7 +266,7 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
             $atc_data = [];
 
             // add main prod to cart
-            $atc_data = wc()->cart->add_to_cart($_POST['product_id'], $_POST['qty']);
+            $atc_data[] = wc()->cart->add_to_cart($_POST['product_id'], $_POST['qty']);
 
             // add variable upsells to cart
             if (!empty($_POST['v_upsells'])) :
