@@ -159,7 +159,7 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                                 $(this).text('<?php _e('Processing...', 'woocommerce') ?>');
 
                                 // setup vars
-                                var product_id = $('input[name=product_id]').val(),
+                                var product_id = '<?php echo get_the_ID(); ?>',
                                     qty = $('.qty').val(),
                                     v_upsells = [],
                                     s_upsells = [];
@@ -202,6 +202,9 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                                 };
 
                                 $.post(ajaxurl, data, function(response) {
+
+                                    // console.log(response);
+
                                     if (response.length > 0) {
                                         window.location.replace('<?php echo wc_get_checkout_url(); ?>');
                                     } else {
