@@ -14,7 +14,7 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
             add_action('woocommerce_after_add_to_cart_button', [__CLASS__, 'insert_button']);
 
             // hook scripts et al
-            add_action('wp_head', [__CLASS__, 'buy_now_js_css']);
+            add_action('wp_footer', [__CLASS__, 'buy_now_js_css']);
 
             // buy now ajax (simple/variable product)
             add_action('wp_ajax_nopriv_vans_riode_variable_buy_now', [__CLASS__, 'vans_riode_variable_buy_now']);
@@ -97,7 +97,8 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                                 e.preventDefault();
 
                                 $('#riode-bn-loading').show();
-                                $(this).css('background-color', '#efefef');
+                                // $(this).css('background-color', '#efefef');
+                                $(this).addClass('masekinners');
 
                                 // debugger;
 
@@ -164,7 +165,8 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                                 e.preventDefault();
 
                                 $('#riode-bn-loading').show();
-                                $(this).css('background-color', '#efefef');
+                                // $(this).css('background-color', '#efefef');
+                                $(this).addClass('masekinners');
 
                                 // debugger;
 
@@ -238,6 +240,11 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                             position: absolute;
                             top: 18%;
                             left: 45%;
+                        }
+
+                        .masekinners {
+                            background-color: #efefef !important;
+                            transition: 0.3s;
                         }
                     </style>
 
