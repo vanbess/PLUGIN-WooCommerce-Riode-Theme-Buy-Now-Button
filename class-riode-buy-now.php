@@ -37,12 +37,12 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
 
                 // display different button based on product type
                 if ($prod_type == 'simple') : ?>
-                    <button id="vans-riode-buy-now-btn-simple" class="product-buy-now button" style="min-width: 200px;">
+                    <button id="vans-riode-buy-now-btn-simple" class="product-buy-now button" style="min-width: 200px; position:relative;">
                         <?php _e('Buy Now!', 'woocommerce'); ?>
                         <img id="riode-bn-loading" src="<?php echo plugin_dir_url(__FILE__) . '/loading.gif'; ?>" alt="" style="display: none;">
                     </button>
                 <?php elseif ($prod_type == 'variable') : ?>
-                    <button id="vans-riode-buy-now-btn-variable" class="product-buy-now button disabled wc-variation-selection-needed" style="min-width: 200px;">
+                    <button id="vans-riode-buy-now-btn-variable" class="product-buy-now button disabled wc-variation-selection-needed" style="min-width: 200px; position:relative;">
                         <?php _e('Buy Now!', 'woocommerce'); ?>
                         <img id="riode-bn-loading" src="<?php echo plugin_dir_url(__FILE__) . '/loading.gif'; ?>" alt="" style="display: none;">
                     </button>
@@ -97,7 +97,9 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                                 e.preventDefault();
 
                                 $('#riode-bn-loading').show();
-                                $(this).addClass('riode-bn-adding-to-cart');
+                                $(this).css('background-color', '#efefef');
+
+                                // debugger;
 
                                 // setup vars
                                 var var_id = $('.variation_id').val(),
@@ -162,7 +164,9 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                                 e.preventDefault();
 
                                 $('#riode-bn-loading').show();
-                                $(this).addClass('riode-bn-adding-to-cart');
+                                $(this).css('background-color', '#efefef');
+
+                                // debugger;
 
                                 // setup vars
                                 var product_id = '<?php echo get_the_ID(); ?>',
@@ -234,11 +238,6 @@ if (!class_exists('Riode_Vans_Buy_Now')) :
                             position: absolute;
                             top: 18%;
                             left: 45%;
-                        }
-
-                        .riode-bn-adding-to-cart {
-                            background-color: #efefef !important;
-                            transition: 0.3s;
                         }
                     </style>
 
